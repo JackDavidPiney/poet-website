@@ -135,6 +135,94 @@
             width: 100%;
         }
 
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .dropdown-toggle .arrow {
+            font-size: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown:hover .arrow {
+            transform: rotate(-180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 15px);
+            left: 0;
+            background: rgba(17, 17, 17, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 8px;
+            padding: 10px 0;
+            min-width: 220px;
+            list-style: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            padding: 0;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .dropdown-menu a::after {
+            display: none;
+        }
+
+        .dropdown-menu a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-menu a:hover {
+            color: var(--primary);
+            background: rgba(0, 255, 136, 0.05);
+            padding-left: 25px;
+        }
+
+        .dropdown-menu a:hover::before {
+            transform: scaleY(1);
+        }
+
         /* Mobile menu toggle */
         .menu-toggle {
             display: none;
@@ -507,6 +595,31 @@
                 display: flex;
             }
 
+            /* Mobile dropdown styles */
+            .dropdown-menu {
+                position: static;
+                opacity: 0;
+                visibility: hidden;
+                max-height: 0;
+                transform: none;
+                border: none;
+                background: transparent;
+                padding: 0;
+                margin-top: 10px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .dropdown.active .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                max-height: 500px;
+            }
+
+            .dropdown-menu a {
+                padding: 10px 0 10px 20px;
+            }
+
             .approach-grid {
                 grid-template-columns: 1fr;
             }
@@ -540,7 +653,7 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">QUANT//RESEARCH</div>
+            <div class="logo">POET</div>
             <div class="menu-toggle" id="menuToggle">
                 <span></span>
                 <span></span>
@@ -548,7 +661,13 @@
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
-                <li><a href="first_hour_strategy.html">Strategies</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Strategies <span class="arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="first_hour_strategy.html">First Hour Effect</a></li>
+                        <!-- Add more strategies here as you create them -->
+                    </ul>
+                </li>
                 <li><a href="#approach">Approach</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -661,7 +780,7 @@
                     Documented methodologies with full transparency on statistical edge, 
                     implementation details, and risk parameters
                 </p>
-                <a href="first_hour_effect_website.html" class="cta-button">View Strategies</a>
+                <a href="first_hour_strategy.html" class="cta-button">View Strategies</a>
             </div>
         </div>
     </section>
@@ -670,7 +789,7 @@
     <footer>
         <div class="footer-content">
             <p class="footer-text">
-                Quantitative Research — Not Financial Advice — Educational Purposes Only
+                Poet — Quantitative Research — Not Financial Advice — Educational Purposes Only
             </p>
         </div>
     </footer>
@@ -684,12 +803,24 @@
             navLinks.classList.toggle('active');
         });
 
-        // Close menu when clicking a link
+        // Close menu when clicking a link (except dropdown toggle)
         navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
+            link.addEventListener('click', (e) => {
+                if (!link.classList.contains('dropdown-toggle')) {
+                    navLinks.classList.remove('active');
+                }
             });
         });
+
+        // Mobile dropdown toggle
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        if (dropdownToggle && window.innerWidth <= 768) {
+            dropdownToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                const dropdown = e.target.closest('.dropdown');
+                dropdown.classList.toggle('active');
+            });
+        }
 
         // Intersection Observer for scroll animations
         const observerOptions = {
