@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Hour Effect - Poet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="strategy-styles.css">
+</head>
+<body>
+    <div class="grid-bg"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">POET</a>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Strategies <span class="arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="first_hour_strategy.html">First Hour Effect</a></li>
+                        <!-- Add more strategies here as you create them -->
+                    </ul>
+                </li>
+                <li><a href="index.html#approach">Approach</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="strategy-hero">
+        <div class="container">
+            <div class="hero-tag">QUANTITATIVE TRADING RESEARCH</div>
+            <h1>THE FIRST<br>HOUR EFFECT</h1>
+            <p class="hero-subtitle">
+                A proven momentum phenomenon in Solana markets:<br>
+                The first 60 minutes predict the daily outcome with remarkable precision
+            </p>
+            <div class="stat-highlight">~75%</div>
+        </div>
+    </section>
+
+    <!-- Chart Section -->
+    <section class="chart-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">01 — THE DATA</div>
+                <h2 class="section-title">Conditional Probabilities</h2>
+                <p class="section-description">
+                    Historical analysis reveals strong momentum continuation patterns in both directions
+                </p>
+            </div>
+
+            <div class="visual-chart">
+                <div class="chart-bar fade-in">
+                    <div class="bar-segments">
+                        <div class="segment green-segment" style="flex: 75.36;">
+                            75.36% green day
+                        </div>
+                        <div class="segment red-segment" style="flex: 24.64;">
+                            24.64% red day
+                        </div>
+                    </div>
+                    <div class="bar-label">Green First Hour</div>
+                </div>
+
+                <div class="chart-bar fade-in">
+                    <div class="bar-segments">
+                        <div class="segment green-segment" style="flex: 23.73;">
+                            23.73% green day
+                        </div>
+                        <div class="segment red-segment" style="flex: 76.27;">
+                            76.27% red day
+                        </div>
+                    </div>
+                    <div class="bar-label">Red First Hour</div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <div class="stat-value">3:1</div>
+                    <div class="stat-label">Continuation Ratio</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-value">~24%</div>
+                    <div class="stat-label">Reversal Rate</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-value">60min</div>
+                    <div class="stat-label">Signal Window</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-value">365+</div>
+                    <div class="stat-label">Days Analyzed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why This Works -->
+    <section class="trading-steps">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">02 — THE PHENOMENON</div>
+                <h2 class="section-title">Why First Hour<br>Momentum Persists</h2>
+            </div>
+
+            <div class="strategy-grid">
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">📊</span>
+                    <h3 class="strategy-title">Liquidity Concentration</h3>
+                    <p class="strategy-description">
+                        The first hour typically sees concentrated trading activity as positions are established. This initial volume creates directional momentum that tends to persist throughout the session.
+                    </p>
+                </div>
+
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">🧠</span>
+                    <h3 class="strategy-title">Market Psychology</h3>
+                    <p class="strategy-description">
+                        Traders anchor to opening moves. Green starts trigger FOMO and buying pressure, while red starts induce fear and selling. This psychological feedback loop reinforces the initial direction.
+                    </p>
+                </div>
+
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">⚡</span>
+                    <h3 class="strategy-title">Algorithmic Alignment</h3>
+                    <p class="strategy-description">
+                        Many algorithmic strategies track early momentum. When bots detect directional moves in the first hour, they amplify the trend through systematic position-taking.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Trade -->
+    <section class="trading-steps">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">03 — THE STRATEGY</div>
+                <h2 class="section-title">How to Trade<br>the Pattern</h2>
+            </div>
+
+            <div class="step fade-in">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Wait for First Hour Close</h3>
+                    <p>
+                        Patience is critical. Avoid trading on partial hour data. Wait for the complete 60-minute candle to close before determining direction. This eliminates false signals from intra-hour volatility and gives you the cleanest read on initial momentum.
+                    </p>
+                    <div class="code-block">
+                        IF hour_1_close > hour_1_open → BULLISH SIGNAL<br>
+                        IF hour_1_close < hour_1_open → BEARISH SIGNAL
+                    </div>
+                </div>
+            </div>
+
+            <div class="step fade-in">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Align Position with Direction</h3>
+                    <p>
+                        Once the first hour closes, establish your position in the same direction as the candle. Green first hour → go long. Red first hour → go short or stay flat. The 75% continuation rate gives you a statistical edge. Size positions accordingly—this isn't speculation, it's probability-weighted allocation.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step fade-in">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Set Risk Parameters</h3>
+                    <p>
+                        Use the first hour range to define risk. Place stops just beyond the first hour's high (if short) or low (if long). This protects you if the pattern breaks. Target the day's close for exits. The edge exists intraday—holding overnight introduces different dynamics.
+                    </p>
+                    <div class="code-block">
+                        LONG: Stop = hour_1_low - (ATR * 0.5)<br>
+                        SHORT: Stop = hour_1_high + (ATR * 0.5)<br>
+                        EXIT: End of day session
+                    </div>
+                </div>
+            </div>
+
+            <div class="step fade-in">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Scale Position Size with Conviction</h3>
+                    <p>
+                        Not all first hours are equal. Larger range moves with strong volume deserve larger positions. Weak, indecisive first hours warrant reduced size. Consider the magnitude of the move, not just direction. A +5% first hour is a stronger signal than +0.5%.
+                    </p>
+                </div>
+            </div>
+
+            <div class="warning-box fade-in">
+                <div class="warning-title">Risk Disclaimer</div>
+                <p>
+                    This strategy shows historical edge but does NOT guarantee future results. The 24% reversal rate means roughly 1 in 4 trades will move against you. Markets can change behavior. Use proper position sizing—never risk more than you can afford to lose. This is educational content, not financial advice. Past performance does not indicate future returns.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Considerations -->
+    <section class="trading-steps" style="padding-top: 0;">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">04 — ADVANCED TACTICS</div>
+                <h2 class="section-title">Refinements &<br>Edge Cases</h2>
+            </div>
+
+            <div class="strategy-grid">
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">🎯</span>
+                    <h3 class="strategy-title">Filter by Magnitude</h3>
+                    <p class="strategy-description">
+                        Only trade when the first hour move exceeds a threshold (e.g., +/- 2%). Small moves have weaker predictive power. Strong directional conviction in the first hour produces higher continuation rates.
+                    </p>
+                </div>
+
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">📈</span>
+                    <h3 class="strategy-title">Volume Confirmation</h3>
+                    <p class="strategy-description">
+                        Check if first hour volume is above the daily average. High volume moves are more trustworthy signals. Low volume drifts often reverse as liquidity increases later in the day.
+                    </p>
+                </div>
+
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">⏰</span>
+                    <h3 class="strategy-title">Time Zone Considerations</h3>
+                    <p class="strategy-description">
+                        Define "first hour" based on your market's primary liquidity window. For Solana, align with US trading hours when volume is typically highest. Crypto trades 24/7 but not all hours are equal.
+                    </p>
+                </div>
+
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">🔄</span>
+                    <h3 class="strategy-title">Avoid Counter-Trend Plays</h3>
+                    <p class="strategy-description">
+                        The 24% reversal rate might seem appealing for mean reversion, but the odds are against you. Fighting first hour momentum requires perfect timing and tighter stops. Stick with the trend.
+                    </p>
+                </div>
+
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">📉</span>
+                    <h3 class="strategy-title">Reduce Size on Gaps</h3>
+                    <p class="strategy-description">
+                        If the day opens with a significant gap from the prior close, the first hour becomes less predictive. Gaps often fill, creating different dynamics that can override the momentum signal.
+                    </p>
+                </div>
+
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">🔬</span>
+                    <h3 class="strategy-title">Backtest Continuously</h3>
+                    <p class="strategy-description">
+                        Market regimes change. Re-run this analysis monthly to verify the edge persists. If the continuation rate drops below 65%, the strategy loses statistical significance. Stay adaptive.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">
+                Poet — Quantitative Research — Not Financial Advice — Educational Purposes Only
+            </p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
