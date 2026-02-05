@@ -1,6 +1,6 @@
 # Poet
 
-**Tools for Quantitative & Discretionary Traders**
+**We build tools for Quantitative & Discretionary Traders**
 
 ---
 
