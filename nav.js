@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span></span>
                 </div>
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle">Strategies <span class="arrow">▼</span></a>
                         <ul class="dropdown-menu">
