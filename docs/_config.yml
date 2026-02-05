@@ -1,0 +1,14 @@
+# GitHub Pages Configuration
+title: Poet Documentation
+description: Platform for systematic & discretionary trading research
+theme: jekyll-theme-minimal
+
+# Optional: Custom navigation
+show_downloads: false
+logo: /assets/POET_LOGO.png  # if you have one
+
+# Markdown settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
