@@ -1,6 +1,6 @@
 # Poet Documentation
 
-**Platform for Systematic & Discretionary Trading Research**
+**We build tools for Quantitative & Discretionary Traders**
 
 ---
 
