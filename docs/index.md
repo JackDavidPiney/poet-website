@@ -6,7 +6,7 @@
 
 ## Quick Links
 
-- [📄 Whitepaper](WHITEPAPER.md) - Complete platform overview
+- [📄 Whitepaper](POET_WHITEPAPER.md) - Complete platform overview
 - [🚀 Glossary](GLOSSARY.md) - Some Key Terms
 - [📊 Metrics Reference](METRICS_REFERENCE.md) - Calculation formulas
 - [📝 Design System](DESIGN_SYSTEM.md) - Visual guidelines
