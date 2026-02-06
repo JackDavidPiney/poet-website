@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playbook - Poet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Playbook Coming Soon Specific Styles */
+        .coming-soon-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            padding: 120px 40px 80px;
+        }
+
+        .coming-soon-content {
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .coming-soon-tag {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-blue);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out;
+            font-weight: 600;
+        }
+
+        .coming-soon-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .coming-soon-title .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        .coming-soon-subtitle {
+            font-size: clamp(16px, 2.5vw, 24px);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 60px;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+            font-weight: 300;
+        }
+
+        .features-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 80px;
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            border-radius: 16px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 40px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(0, 212, 255, 0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notify-section {
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(0, 255, 136, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 16px;
+            animation: fadeInUp 0.8s ease-out 0.8s backwards;
+        }
+
+        .notify-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .notify-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .notify-form {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .notify-input {
+            flex: 1;
+            background: var(--bg-dark);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            padding: 14px 20px;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .notify-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+        }
+
+        .notify-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .notify-button {
+            background: var(--primary);
+            color: var(--bg-dark);
+            padding: 14px 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .notify-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .notify-button:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .features-preview {
+                grid-template-columns: 1fr;
+            }
+
+            .notify-form {
+                flex-direction: column;
+            }
+
+            .notify-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">POET</a>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#home">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Strategies <span class="arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="first_hour_strategy.html">First Hour Effect</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Tools <span class="arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="factsheet-generator.html">Factsheets</a></li>
+                        <li><a href="playbook.html">Playbook</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.html#approach">Approach</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Coming Soon Content -->
+    <section class="coming-soon-container">
+        <div class="coming-soon-content">
+            <div class="coming-soon-tag">UNDER DEVELOPMENT</div>
+            <h1 class="coming-soon-title">
+                <span class="gradient-text">PLAYBOOK</span>
+            </h1>
+            <p class="coming-soon-subtitle">
+                Document setups. Track execution. Master your edge. A systematic approach to discretionary trading improvement—inspired by SMB Capital's methodology.
+            </p>
+
+            <div class="status-badge">Coming Soon</div>
+
+            <div class="features-preview">
+                <div class="feature-card">
+                    <span class="feature-icon">📋</span>
+                    <h3 class="feature-title">Setup Library</h3>
+                    <p class="feature-description">
+                        Build a catalog of your highest-probability patterns. Document entry triggers, invalidation rules, and target expectations.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">✍️</span>
+                    <h3 class="feature-title">Trade Logger</h3>
+                    <p class="feature-description">
+                        Real-time trade documentation with screenshot uploads, execution notes, and psychology tracking for every position.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3 class="feature-title">Performance Analytics</h3>
+                    <p class="feature-description">
+                        Win rate by setup, average R/R, discipline scores, and improvement trends. Identify your statistical edge.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3 class="feature-title">Review Dashboard</h3>
+                    <p class="feature-description">
+                        Filter trades by setup, market regime, or timeframe. Pattern recognition powered by your actual execution history.
+                    </p>
+                </div>
+            </div>
+
+            <div class="notify-section">
+                <h3 class="notify-title">Get Notified at Launch</h3>
+                <p class="notify-text">
+                    Be the first to know when Playbook goes live. We'll send you early access and onboarding resources.
+                </p>
+                <form class="notify-form" id="notifyForm">
+                    <input 
+                        type="email" 
+                        class="notify-input" 
+                        placeholder="your@email.com" 
+                        required
+                        id="emailInput"
+                    >
+                    <button type="submit" class="notify-button">Notify Me</button>
+                </form>
+                <p id="formMessage" style="margin-top: 15px; font-size: 13px; color: var(--primary);"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">
+                Poet — Quantitative Research — Not Financial Advice — Educational Purposes Only
+            </p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        // Simple form handler (placeholder - no backend yet)
+        document.getElementById('notifyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            const message = document.getElementById('formMessage');
+            
+            // Placeholder - would normally send to backend
+            console.log('Email submitted:', email);
+            
+            message.textContent = '✓ Thanks! We\'ll notify you when Playbook launches.';
+            message.style.color = 'var(--primary)';
+            
+            // Clear form
+            document.getElementById('emailInput').value = '';
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                message.textContent = '';
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
