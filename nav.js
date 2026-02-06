@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="#" class="dropdown-toggle">Tools <span class="arrow">▼</span></a>
                         <ul class="dropdown-menu">
                             <li><a href="factsheet-generator.html">Factsheets</a></li>
+                            <li><a href="playbook.html">Playbook</a></li>
                         </ul>
                     </li>
                     <li><a href="index.html#approach">Approach</a></li>
