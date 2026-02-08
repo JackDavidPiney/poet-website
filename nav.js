@@ -1,4 +1,5 @@
 // nav.js - Complete navigation with mobile support
+// 3-zone layout: Logo (left) | Home, Tools, Strategies (center) | $POET button (right)
 document.addEventListener('DOMContentLoaded', () => {
     const navHTML = `
         <nav>
@@ -12,21 +13,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 <ul class="nav-links" id="navLinks">
                     <li><a href="index.html">Home</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">Strategies <span class="arrow">▼</span></a>
+                        <a href="#" class="dropdown-toggle">Tools <span class="arrow">&#9660;</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="factsheet-generator.html">Factsheet Generator</a></li>
+                            <li><a href="playbook.html">Playbook</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Strategies <span class="arrow">&#9660;</span></a>
                         <ul class="dropdown-menu">
                             <li><a href="first_hour_strategy.html">First Hour Effect</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">Tools <span class="arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="factsheet-generator.html">Factsheets</a></li>
-                            <li><a href="playbook.html">Playbook</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="index.html#approach">Approach</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
+                    <li class="mobile-poet-link"><a href="https://jup.ag/tokens/4jnqfSMWE1opwNT9m98s5QFKyNasypjeoieJsGsdjupx" target="_blank" rel="noopener">$POET</a></li>
                 </ul>
+                <div class="nav-right">
+                    <a href="https://jup.ag/tokens/4jnqfSMWE1opwNT9m98s5QFKyNasypjeoieJsGsdjupx" target="_blank" rel="noopener" class="nav-btn-poet">$POET</a>
+                </div>
             </div>
         </nav>
     `;
@@ -53,12 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Mobile dropdown toggle
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
-    if (dropdownToggle && window.innerWidth <= 768) {
-        dropdownToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            const dropdown = e.target.closest('.dropdown');
-            dropdown.classList.toggle('active');
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                const dropdown = e.target.closest('.dropdown');
+                dropdown.classList.toggle('active');
+            }
         });
-    }
+    });
 });
