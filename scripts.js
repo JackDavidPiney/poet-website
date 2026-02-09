@@ -1,4 +1,4 @@
-// scripts.js - Shared page utilities (navigation in nav.js)
+// scripts.js - Page-level functionality (no nav code - that lives in nav.js)
 
 // Intersection Observer for scroll animations
 const observerOptions = {
@@ -16,4 +16,15 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-in').forEach(el => {
     observer.observe(el);
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
 });

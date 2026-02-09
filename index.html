@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tools for Quantitative and Discretionary Traders</title>
+    <title>Poet — Tools for Quantitative & Discretionary Traders</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
@@ -83,8 +83,8 @@
             max-width: 1600px;
             margin: 0 auto;
             padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
             align-items: center;
         }
 
@@ -104,6 +104,39 @@
             gap: 40px;
             list-style: none;
             align-items: center;
+            justify-content: center;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .nav-btn-poet {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--bg-dark);
+            padding: 10px 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn-poet:hover {
+            background: transparent;
+            color: var(--primary);
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .mobile-poet-link {
+            display: none;
         }
 
         .nav-links a {
@@ -254,6 +287,7 @@
             width: 100%;
             position: relative;
             z-index: 2;
+            text-align: center;
         }
 
         .hero-tag {
@@ -268,9 +302,9 @@
 
         .hero-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(48px, 10vw, 140px);
+            font-size: clamp(40px, 8vw, 110px);
             font-weight: 900;
-            line-height: 0.9;
+            line-height: 1.0;
             margin-bottom: 40px;
             animation: fadeInUp 0.8s ease-out 0.2s backwards;
         }
@@ -284,42 +318,61 @@
         }
 
         .hero-subtitle {
-            font-size: clamp(18px, 2.5vw, 28px);
+            font-size: clamp(16px, 2vw, 22px);
             color: var(--text-secondary);
-            max-width: 800px;
-            line-height: 1.6;
-            margin-bottom: 60px;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            margin-bottom: 50px;
             animation: fadeInUp 0.8s ease-out 0.4s backwards;
             font-weight: 300;
         }
 
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            max-width: 900px;
+        .hero-cta-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
             animation: fadeInUp 0.8s ease-out 0.6s backwards;
         }
 
-        .stat {
-            border-left: 3px solid var(--primary);
-            padding-left: 20px;
-        }
-
-        .stat-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 48px;
-            font-weight: 900;
-            color: var(--primary);
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 11px;
+        .hero-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .hero-btn-primary {
+            background: var(--primary);
+            color: var(--bg-dark);
+            border: 2px solid var(--primary);
+        }
+
+        .hero-btn-primary:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .hero-btn-secondary {
+            background: transparent;
             color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .hero-btn-secondary:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-3px);
         }
 
         @keyframes fadeInUp {
@@ -374,8 +427,8 @@
             66% { transform: translateY(20px) rotate(240deg); }
         }
 
-        /* Approach Section */
-        .approach-section {
+        /* Tools Section */
+        .tools-section {
             padding: 120px 40px;
             position: relative;
             z-index: 2;
@@ -415,15 +468,15 @@
             line-height: 1.8;
         }
 
-        /* Approach Cards */
-        .approach-grid {
+        /* Tool Cards */
+        .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 40px;
             margin-top: 60px;
         }
 
-        .approach-card {
+        .tool-card {
             background: var(--bg-card);
             border: 1px solid rgba(0, 255, 136, 0.1);
             border-radius: 20px;
@@ -431,9 +484,13 @@
             position: relative;
             overflow: hidden;
             transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
-        .approach-card::before {
+        .tool-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -444,23 +501,46 @@
             transition: left 0.6s ease;
         }
 
-        .approach-card:hover::before {
+        .tool-card:hover::before {
             left: 100%;
         }
 
-        .approach-card:hover {
+        .tool-card:hover {
             border-color: var(--primary);
             transform: translateY(-10px);
             box-shadow: 0 20px 60px rgba(0, 255, 136, 0.1);
         }
 
-        .approach-icon {
+        .tool-icon {
             font-size: 64px;
             margin-bottom: 30px;
             display: block;
         }
 
-        .approach-title {
+        .tool-status {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            width: fit-content;
+        }
+
+        .status-live {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--primary);
+        }
+
+        .status-beta {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--accent-blue);
+        }
+
+        .tool-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 28px;
             font-weight: 700;
@@ -468,10 +548,57 @@
             color: var(--primary);
         }
 
-        .approach-description {
+        .tool-description {
             color: var(--text-secondary);
             line-height: 1.8;
             font-size: 15px;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .tool-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .tool-features li {
+            color: var(--text-secondary);
+            font-size: 13px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-features li::before {
+            content: '>';
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .tool-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .tool-link:hover {
+            letter-spacing: 3px;
+        }
+
+        .tool-link span {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .tool-link:hover span {
+            transform: translateX(5px);
         }
 
         /* CTA Section */
@@ -509,6 +636,16 @@
             to { transform: rotate(360deg); }
         }
 
+        .cta-tag {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
         .cta-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(32px, 4vw, 56px);
@@ -519,11 +656,15 @@
         }
 
         .cta-text {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--text-secondary);
             margin-bottom: 40px;
             position: relative;
             z-index: 1;
+            line-height: 1.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .cta-button {
@@ -574,6 +715,11 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .nav-container {
+                display: flex;
+                justify-content: space-between;
+            }
+
             .nav-links {
                 position: fixed;
                 top: 70px;
@@ -593,6 +739,14 @@
 
             .menu-toggle {
                 display: flex;
+            }
+
+            .nav-right {
+                display: none;
+            }
+
+            .nav-links .mobile-poet-link {
+                display: block;
             }
 
             /* Mobile dropdown styles */
@@ -620,16 +774,20 @@
                 padding: 10px 0 10px 20px;
             }
 
-            .approach-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-stats {
+            .tools-grid {
                 grid-template-columns: 1fr;
             }
 
             .cta-content {
                 padding: 60px 30px;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+            }
+
+            .hero-btn {
+                text-align: center;
             }
         }
 
@@ -650,7 +808,7 @@
     <div class="grid-bg"></div>
     <div class="noise-overlay"></div>
 
-    <script src="nav.js"></script>
+    <!-- Navigation injected by nav.js -->
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -659,102 +817,80 @@
         <div class="float-element float-3"></div>
         
         <div class="hero-content">
-            <div class="hero-tag">WE BUILD TOOLS FOR QUANTITATIVE & DISCRETIONARY TRADERS</div>
+            <div class="hero-tag">Tools for Quantitative & Discretionary Traders</div>
             <h1 class="hero-title">
-                <span class="gradient-text">SUCCESS</span><br>
-                DRIVEN BY<br>
-                DATA
+                YOU DESERVE<br>
+                <span class="gradient-text">BETTER TOOLS</span>
             </h1>
-            
-            <div class="hero-stats">
-                <div class="stat">
-                    <div class="stat-value">~75%</div>
-                    <div class="stat-label">Strategy Accuracy</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">24/7</div>
-                    <div class="stat-label">Market Analysis</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">∞</div>
-                    <div class="stat-label">Iterations</div>
-                </div>
+            <p class="hero-subtitle">
+                Spreadsheets weren't built for traders. Most tools either drown you in complexity, are hidden behind paywalls or lack the metrics that matter. Poet gives you institutional-grade reporting and structured trade documentation without the overhead.
+            </p>
+            <div class="hero-cta-group">
+                <a href="factsheet-generator.html" class="hero-btn hero-btn-primary">Explore Tools</a>
+                <a href="https://jup.ag/tokens/4jnqfSMWE1opwNT9m98s5QFKyNasypjeoieJsGsdjupx" target="_blank" rel="noopener" class="hero-btn hero-btn-secondary">Get $POET</a>
             </div>
         </div>
     </section>
 
-    <!-- Approach Section -->
-    <section class="approach-section" id="approach">
+    <!-- Tools Section -->
+    <section class="tools-section" id="tools">
         <div class="container">
             <div class="section-header fade-in">
-                <div class="section-tag">METHODOLOGY</div>
-                <h2 class="section-title">Dual-Engine Approach</h2>
+                <div class="section-tag">What We Build</div>
+                <h2 class="section-title">Tools & Strategies</h2>
                 <p class="section-description">
-                    Combining the computational power of systematic strategies with the 
-                    adaptive intelligence of discretionary decision-making
+                    We build tools and strategies to help traders understand and develop their edge.
                 </p>
             </div>
 
-            <div class="approach-grid">
-                <div class="approach-card fade-in">
-                    <span class="approach-icon">⚡</span>
-                    <h3 class="approach-title">Systematic Trading</h3>
-                    <p class="approach-description">
-                        Rules-based methodologies built on statistical edge. Algorithmic execution 
-                        eliminates emotion and ensures consistency. Backtested across thousands of 
-                        market conditions. Scalable, repeatable, and precise. Examples: momentum 
-                        continuations, mean reversion patterns, statistical arbitrage.
+            <div class="tools-grid">
+                <div class="tool-card fade-in">
+                    <span class="tool-icon">&#128202;</span>
+                    <span class="tool-status status-live">Live</span>
+                    <h3 class="tool-title">Factsheet Generator</h3>
+                    <p class="tool-description">
+                        Upload your trade history. Get an institutional-grade performance factsheet with the metrics that allocators and risk managers actually care about. Sharpe, Sortino, drawdown profiles, VAMI curves, monthly returns, and more.
                     </p>
+                    <ul class="tool-features">
+                        <li>CSV upload with multi-strategy support</li>
+                        <li>Portfolio weighting and blending</li>
+                        <li>Sharpe, Sortino, Calmar, MAR ratios</li>
+                        <li>Drawdown analysis and VAMI charting</li>
+                        <li>PDF export for distribution</li>
+                    </ul>
+                    <a href="factsheet-generator.html" class="tool-link">Launch Tool <span>&rarr;</span></a>
                 </div>
 
-                <div class="approach-card fade-in">
-                    <span class="approach-icon">🧠</span>
-                    <h3 class="approach-title">Discretionary Trading</h3>
-                    <p class="approach-description">
-                        Human judgment applied where machines fall short. Reading market structure, 
-                        identifying regime changes, and adapting to unprecedented conditions. 
-                        Experience-driven pattern recognition. Tactical positioning during high-impact 
-                        events. The art that complements the science.
+                <div class="tool-card fade-in">
+                    <span class="tool-icon">&#128221;</span>
+                    <span class="tool-status status-beta">Beta</span>
+                    <h3 class="tool-title">Playbook</h3>
+                    <p class="tool-description">
+                        A structured workspace to document your trading setups, journal your decisions, and build a repeatable process. Think Notion, but purpose-built for traders who want to turn experience into edge.
                     </p>
-                </div>
-            </div>
-
-            <div class="approach-grid" style="margin-top: 40px;">
-                <div class="approach-card fade-in">
-                    <span class="approach-icon">📊</span>
-                    <h3 class="approach-title">Research Process</h3>
-                    <p class="approach-description">
-                        Every strategy begins with a hypothesis. We test it against historical data, 
-                        validate it across different market regimes, and refine it through iteration. 
-                        Statistical significance is mandatory. Overfitting is the enemy. Only ideas 
-                        that survive rigorous scrutiny make it to production.
-                    </p>
-                </div>
-
-                <div class="approach-card fade-in">
-                    <span class="approach-icon">🎯</span>
-                    <h3 class="approach-title">Risk Management</h3>
-                    <p class="approach-description">
-                        Position sizing based on edge magnitude and market volatility. Diversification 
-                        across uncorrelated strategies. Hard stops on every trade. Maximum drawdown 
-                        limits enforced systematically. Preservation of capital is the foundation of 
-                        long-term compounding.
-                    </p>
+                    <ul class="tool-features">
+                        <li>Setup templates for recurring patterns</li>
+                        <li>Trade journaling with tagging</li>
+                        <li>Pre-trade checklists and post-trade reviews</li>
+                        <li>Searchable, filterable trade archive</li>
+                        <li>Export and share your playbook</li>
+                    </ul>
+                    <a href="playbook.html" class="tool-link">Coming Soon <span>&rarr;</span></a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section" id="contact">
+    <section class="cta-section" id="poet">
         <div class="container">
             <div class="cta-content fade-in">
-                <h2 class="cta-title">Explore Our Strategies</h2>
+                <div class="cta-tag">$POET Token</div>
+                <h2 class="cta-title">Unlock Premium Features</h2>
                 <p class="cta-text">
-                    Documented methodologies with full transparency on statistical edge, 
-                    implementation details, and risk parameters
+                    Hold $POET to access premium tool features, advanced analytics, and exclusive strategy research as the platform grows.
                 </p>
-                <a href="first_hour_strategy.html" class="cta-button">View Strategies</a>
+                <a href="https://jup.ag/tokens/4jnqfSMWE1opwNT9m98s5QFKyNasypjeoieJsGsdjupx" target="_blank" rel="noopener" class="cta-button">Buy $POET on Jupiter</a>
             </div>
         </div>
     </section>
@@ -763,7 +899,7 @@
     <footer>
         <div class="footer-content">
             <p class="footer-text">
-                Poet — Quantitative Research — Not Financial Advice — Educational Purposes Only
+                Poet &mdash; Tools for Traders &mdash; Not Financial Advice &mdash; Educational Purposes Only
             </p>
         </div>
     </footer>
