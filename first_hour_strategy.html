@@ -33,7 +33,7 @@
     <section class="chart-section">
         <div class="container">
             <div class="section-header fade-in">
-                <div class="section-number">01 â€” THE DATA</div>
+                <div class="section-number">01 - THE DATA</div>
                 <h2 class="section-title">Conditional Probabilities</h2>
                 <p class="section-description">
                     Historical analysis reveals strong momentum continuation patterns in both directions
@@ -91,13 +91,13 @@
     <section class="trading-steps">
         <div class="container">
             <div class="section-header fade-in">
-                <div class="section-number">02 â€” THE PHENOMENON</div>
+                <div class="section-number">02 - THE PHENOMENON</div>
                 <h2 class="section-title">Why First Hour<br>Momentum Persists</h2>
             </div>
 
             <div class="strategy-grid">
                 <div class="strategy-card fade-in">
-                    <span class="strategy-icon">ðŸ“Š</span>
+                    <span class="strategy-icon">📊</span>
                     <h3 class="strategy-title">Liquidity Concentration</h3>
                     <p class="strategy-description">
                         The first hour typically sees concentrated trading activity as positions are established. This initial volume creates directional momentum that tends to persist throughout the session.
@@ -105,7 +105,7 @@
                 </div>
 
                 <div class="strategy-card fade-in">
-                    <span class="strategy-icon">ðŸ§ </span>
+                    <span class="strategy-icon">🧠</span>
                     <h3 class="strategy-title">Market Psychology</h3>
                     <p class="strategy-description">
                         Traders anchor to opening moves. Green starts trigger FOMO and buying pressure, while red starts induce fear and selling. This psychological feedback loop reinforces the initial direction.
@@ -113,7 +113,7 @@
                 </div>
 
                 <div class="strategy-card fade-in">
-                    <span class="strategy-icon">âš¡</span>
+                    <span class="strategy-icon">⚡</span>
                     <h3 class="strategy-title">Algorithmic Alignment</h3>
                     <p class="strategy-description">
                         Many algorithmic strategies track early momentum. When bots detect directional moves in the first hour, they amplify the trend through systematic position-taking.
@@ -127,7 +127,7 @@
     <section class="trading-steps">
         <div class="container">
             <div class="section-header fade-in">
-                <div class="section-number">03 â€” THE STRATEGY</div>
+                <div class="section-number">03 - THE STRATEGY</div>
                 <h2 class="section-title">How to Trade<br>the Pattern</h2>
             </div>
 
@@ -139,8 +139,8 @@
                         Patience is critical. Avoid trading on partial hour data. Wait for the complete 60-minute candle to close before determining direction. This eliminates false signals from intra-hour volatility and gives you the cleanest read on initial momentum.
                     </p>
                     <div class="code-block">
-                        IF hour_1_close > hour_1_open â†’ BULLISH SIGNAL<br>
-                        IF hour_1_close < hour_1_open â†’ BEARISH SIGNAL
+                        IF hour_1_close > hour_1_open → BULLISH SIGNAL<br>
+                        IF hour_1_close < hour_1_open → BEARISH SIGNAL
                     </div>
                 </div>
             </div>
@@ -150,7 +150,7 @@
                 <div class="step-content">
                     <h3>Align Position with Direction</h3>
                     <p>
-                        Once the first hour closes, establish your position in the same direction as the candle. Green first hour â†’ go long. Red first hour â†’ go short or stay flat. The 75% continuation rate gives you a statistical edge. Size positions accordinglyâ€”this isn't speculation, it's probability-weighted allocation.
+                        Once the first hour closes, establish your position in the same direction as the candle. Green first hour → get long. Red first hour → get short or stay flat. The 75% continuation rate gives you a statistical edge. Size positions accordingly.
                     </p>
                 </div>
             </div>
@@ -160,7 +160,7 @@
                 <div class="step-content">
                     <h3>Set Risk Parameters</h3>
                     <p>
-                        Use the first hour range to define risk. Place stops just beyond the first hour's high (if short) or low (if long). This protects you if the pattern breaks. Target the day's close for exits. The edge exists intradayâ€”holding overnight introduces different dynamics.
+                        Use the first hour range to define risk. Place stops just beyond the first hour's high (if short) or low (if long). This protects you if the pattern breaks. Target the day's close for exits. The edge exists intraday, holding overnight introduces different dynamics.
                     </p>
                     <div class="code-block">
                         LONG: Stop = hour_1_low - (ATR * 0.5)<br>
@@ -183,7 +183,7 @@
             <div class="warning-box fade-in">
                 <div class="warning-title">Risk Disclaimer</div>
                 <p>
-                    This strategy shows historical edge but does NOT guarantee future results. The 24% reversal rate means roughly 1 in 4 trades will move against you. Markets can change behavior. Use proper position sizingâ€”never risk more than you can afford to lose. This is educational content, not financial advice. Past performance does not indicate future returns.
+                    This strategy shows historical edge but does NOT guarantee future results. The 24% reversal rate means roughly 1 in 4 trades will move against you. Markets can change behavior. Use proper position sizing, never risk more than you can afford to lose. This is educational content, not financial advice. Past performance does not indicate future returns.
                 </p>
             </div>
         </div>
@@ -193,13 +193,13 @@
     <section class="trading-steps" style="padding-top: 0;">
         <div class="container">
             <div class="section-header fade-in">
-                <div class="section-number">04 â€” ADVANCED TACTICS</div>
+                <div class="section-number">04 - ADVANCED TACTICS</div>
                 <h2 class="section-title">Refinements &<br>Edge Cases</h2>
             </div>
 
             <div class="strategy-grid">
                 <div class="strategy-card fade-in">
-                    <span class="strategy-icon">ðŸŽ¯</span>
+                    <span class="strategy-icon">🎯</span>
                     <h3 class="strategy-title">Filter by Magnitude</h3>
                     <p class="strategy-description">
                         Only trade when the first hour move exceeds a threshold (e.g., +/- 2%). Small moves have weaker predictive power. Strong directional conviction in the first hour produces higher continuation rates.
@@ -207,7 +207,7 @@
                 </div>
 
                 <div class="strategy-card fade-in">
-                    <span class="strategy-icon">ðŸ“ˆ</span>
+                    <span class="strategy-icon">📈</span>
                     <h3 class="strategy-title">Volume Confirmation</h3>
                     <p class="strategy-description">
                         Check if first hour volume is above the daily average. High volume moves are more trustworthy signals. Low volume drifts often reverse as liquidity increases later in the day.
@@ -215,7 +215,7 @@
                 </div>
 
                 <div class="strategy-card fade-in">
-                    <span class="strategy-icon">â°</span>
+                    <span class="strategy-icon">⏰</span>
                     <h3 class="strategy-title">Time Zone Considerations</h3>
                     <p class="strategy-description">
                         Define "first hour" based on your market's primary liquidity window. For Solana, align with US trading hours when volume is typically highest. Crypto trades 24/7 but not all hours are equal.
@@ -223,7 +223,7 @@
                 </div>
 
                 <div class="strategy-card fade-in">
-                    <span class="strategy-icon">ðŸ”„</span>
+                    <span class="strategy-icon">🔄</span>
                     <h3 class="strategy-title">Avoid Counter-Trend Plays</h3>
                     <p class="strategy-description">
                         The 24% reversal rate might seem appealing for mean reversion, but the odds are against you. Fighting first hour momentum requires perfect timing and tighter stops. Stick with the trend.
@@ -231,7 +231,7 @@
                 </div>
 
                 <div class="strategy-card fade-in">
-                    <span class="strategy-icon">ðŸ“‰</span>
+                    <span class="strategy-icon">📉</span>
                     <h3 class="strategy-title">Reduce Size on Gaps</h3>
                     <p class="strategy-description">
                         If the day opens with a significant gap from the prior close, the first hour becomes less predictive. Gaps often fill, creating different dynamics that can override the momentum signal.
@@ -239,7 +239,7 @@
                 </div>
 
                 <div class="strategy-card fade-in">
-                    <span class="strategy-icon">ðŸ”¬</span>
+                    <span class="strategy-icon">🔬</span>
                     <h3 class="strategy-title">Backtest Continuously</h3>
                     <p class="strategy-description">
                         Market regimes change. Re-run this analysis monthly to verify the edge persists. If the continuation rate drops below 65%, the strategy loses statistical significance. Stay adaptive.
@@ -253,7 +253,7 @@
     <footer>
         <div class="footer-content">
             <p class="footer-text">
-                Poet â€” Quantitative Research â€” Not Financial Advice â€” Educational Purposes Only
+                Poet - Quantitative Research - Not Financial Advice - Educational Purposes Only
             </p>
         </div>
     </footer>
