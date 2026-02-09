@@ -1,6 +1,13 @@
-// nav.js - Complete navigation with mobile support
-// 3-zone layout: Logo (left) | Home, Tools, Strategies (center) | $POET button (right)
+// nav.js - Single source of truth for site navigation
+// All pages load this file. No page has inline <nav> HTML.
 document.addEventListener('DOMContentLoaded', () => {
+    // Detect if we're on the homepage
+    const isHome = window.location.pathname === '/' || 
+                   window.location.pathname.endsWith('index.html') ||
+                   window.location.pathname.endsWith('/');
+
+    const homeLink = isHome ? '#home' : 'index.html';
+
     const navHTML = `
         <nav>
             <div class="nav-container">
@@ -11,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span></span>
                 </div>
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="${homeLink}">Home</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle">Tools <span class="arrow">&#9660;</span></a>
                         <ul class="dropdown-menu">
@@ -33,34 +40,44 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         </nav>
     `;
-    
-    document.body.insertAdjacentHTML('afterbegin', navHTML);
-    
+
+    // Inject nav after background elements if present, otherwise at top of body
+    const noiseOverlay = document.querySelector('.noise-overlay');
+    if (noiseOverlay) {
+        noiseOverlay.insertAdjacentHTML('afterend', navHTML);
+    } else {
+        document.body.insertAdjacentHTML('afterbegin', navHTML);
+    }
+
     // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
-    
+
     if (menuToggle && navLinks) {
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
-        
-        // Close menu when clicking links (except dropdown toggle)
+
+        // Close menu when clicking a link (except dropdown toggles)
         navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', (e) => {
+            link.addEventListener('click', () => {
                 if (!link.classList.contains('dropdown-toggle')) {
                     navLinks.classList.remove('active');
                 }
             });
         });
     }
-    
-    // Mobile dropdown toggle
+
+    // Mobile dropdown toggles (all of them, not just the first)
     document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
         toggle.addEventListener('click', (e) => {
             if (window.innerWidth <= 768) {
                 e.preventDefault();
                 const dropdown = e.target.closest('.dropdown');
+                // Close other dropdowns
+                document.querySelectorAll('.dropdown.active').forEach(d => {
+                    if (d !== dropdown) d.classList.remove('active');
+                });
                 dropdown.classList.toggle('active');
             }
         });
