@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle">Strategies <span class="arrow">&#9660;</span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="first_hour_strategy.html">First Hour Effect</a></li>
+                            <li><a href="mean_reversion_strategy.html">Mean Reversion</a></li>
                         </ul>
                     </li>
                     <li class="mobile-poet-link"><a href="https://jup.ag/tokens/4jnqfSMWE1opwNT9m98s5QFKyNasypjeoieJsGsdjupx" target="_blank" rel="noopener">$POET</a></li>

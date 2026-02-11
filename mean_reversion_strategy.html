@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOLUSDT Mean Reversion Strategy - Poet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="strategy-styles.css">
+    <style>
+        /* Mean Reversion Strategy - Page-Specific Styles */
+
+        /* Performance Report Section */
+        .report-section {
+            padding: 100px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .report-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(24px, 4vw, 42px);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .report-header .report-meta {
+            font-size: 14px;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+        }
+
+        .report-divider {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+            height: 3px;
+            background: var(--primary);
+            border: none;
+        }
+
+        /* Metrics Tables */
+        .metrics-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+
+        .metrics-panel {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .metrics-panel-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .metrics-panel-header span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .metrics-panel-header .separator {
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .metric-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-cell {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 24px;
+        }
+
+        .metric-cell:first-child {
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .metric-cell .label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .metric-cell .value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .metric-cell .value.positive {
+            color: var(--primary);
+        }
+
+        .metric-cell .value.negative {
+            color: var(--secondary);
+        }
+
+        .metric-cell .value.neutral {
+            color: var(--text-primary);
+        }
+
+        /* Capital Bar */
+        .capital-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .capital-cell {
+            display: flex;
+            align-items: center;
+            padding: 16px 30px;
+            background: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--bg-dark);
+        }
+
+        .capital-cell.label-cell {
+            background: var(--primary);
+        }
+
+        .capital-cell.value-cell {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+        }
+
+        /* Strategy Spec Section */
+        .spec-section {
+            padding: 100px 40px;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(180deg, transparent, var(--bg-card) 50%, transparent);
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px 80px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .spec-item {
+            border-left: 3px solid var(--primary);
+            padding-left: 24px;
+        }
+
+        .spec-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .spec-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .spec-value ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .spec-value ul li {
+            padding: 4px 0;
+            position: relative;
+            padding-left: 18px;
+        }
+
+        .spec-value ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* Key Insight Cards */
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .insight-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 36px 28px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent-blue));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .insight-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .insight-card:hover {
+            border-color: rgba(0, 255, 136, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .insight-icon {
+            font-size: 36px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .insight-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .insight-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Stat highlight override for this page */
+        .hero-stat-row {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .hero-stat-value.red {
+            color: var(--secondary);
+        }
+
+        .hero-stat-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        /* Responsive overrides */
+        @media (max-width: 768px) {
+            .metrics-container {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-row {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-cell:first-child {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .insight-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .capital-bar {
+                flex-wrap: wrap;
+            }
+
+            .capital-cell {
+                padding: 14px 24px;
+            }
+
+            .hero-stat-row {
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation injected by nav.js -->
+
+    <!-- Hero Section -->
+    <section class="strategy-hero">
+        <div class="container">
+            <div class="hero-tag">QUANTITATIVE TRADING RESEARCH</div>
+            <h1>SOLUSDT MEAN<br>REVERSION</h1>
+            <p class="hero-subtitle">
+                A mean reversion strategy exploiting first-hour selling pressure on SOL/USDT Perpetual.<br>
+                Statistically significant at p &lt; 0.01 across 4.5 years of data.
+            </p>
+            <div class="hero-stat-row">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">+1966%</div>
+                    <div class="hero-stat-label">Total Return</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">3.04</div>
+                    <div class="hero-stat-label">Sharpe Ratio</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value red">-33%</div>
+                    <div class="hero-stat-label">Max Drawdown</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">301</div>
+                    <div class="hero-stat-label">Trades</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Report Section -->
+    <section class="report-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">01 - PERFORMANCE</div>
+                <h2 class="section-title">Hypothetical Backtest<br>Performance Report</h2>
+                <p class="section-description">
+                    SOLUSDT (Binance) &nbsp;|&nbsp; Aug 2020 &ndash; Mar 2025 &nbsp;|&nbsp; 301 Trades
+                </p>
+            </div>
+
+            <hr class="report-divider fade-in">
+
+            <!-- Metrics Tables -->
+            <div class="metrics-container fade-in">
+                <!-- Left Panel: Return + Risk -->
+                <div class="metrics-panel">
+                    <div class="metrics-panel-header">
+                        <span>Return Metrics</span>
+                        <span class="separator">//</span>
+                        <span>Risk Metrics</span>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">Total Return</span>
+                            <span class="value positive">+1966.5</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label">Max DD</span>
+                            <span class="value negative">-33%</span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">CAGR</span>
+                            <span class="value positive">+95.3%</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label">Calmar</span>
+                            <span class="value neutral">2.89</span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">EV/Trade</span>
+                            <span class="value positive">+1.18%</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label">Sharpe</span>
+                            <span class="value neutral">3.04</span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">Ann. Vol</span>
+                            <span class="value neutral">97.85%</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label">Sortino</span>
+                            <span class="value neutral">6.28</span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">Profit Factor</span>
+                            <span class="value neutral">1.89</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label">Consec. Losses</span>
+                            <span class="value neutral">9</span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">Skewness</span>
+                            <span class="value positive">+3.39</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label"></span>
+                            <span class="value"></span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">Kurtosis</span>
+                            <span class="value positive">+29.48</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label"></span>
+                            <span class="value"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Trade Metrics + Significance -->
+                <div class="metrics-panel">
+                    <div class="metrics-panel-header">
+                        <span>Trade Metrics</span>
+                        <span class="separator">//</span>
+                        <span>Significance</span>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">Total Trades</span>
+                            <span class="value neutral">301</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label">T-Statistic</span>
+                            <span class="value neutral">3.322</span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">Trades/Year</span>
+                            <span class="value neutral">67</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label">P-Value</span>
+                            <span class="value neutral">0.001003</span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">Win Rate</span>
+                            <span class="value neutral">58.8</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label"></span>
+                            <span class="value"></span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">Avg Winning Trade</span>
+                            <span class="value positive">+4.27</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label"></span>
+                            <span class="value"></span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">Avg Losing Trade</span>
+                            <span class="value negative">-3.23</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label"></span>
+                            <span class="value"></span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">Best Trade</span>
+                            <span class="value positive">+60.5</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label"></span>
+                            <span class="value"></span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-cell">
+                            <span class="label">Worst Trade</span>
+                            <span class="value negative">-15.52</span>
+                        </div>
+                        <div class="metric-cell">
+                            <span class="label"></span>
+                            <span class="value"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Capital Bar -->
+            <div class="capital-bar fade-in">
+                <div class="capital-cell label-cell">Starting $</div>
+                <div class="capital-cell value-cell">100,000</div>
+                <div class="capital-cell label-cell">Ending $</div>
+                <div class="capital-cell value-cell">2,066,468</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategy Specification Section -->
+    <section class="spec-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">02 - SPECIFICATION</div>
+                <h2 class="section-title">Strategy<br>Specification</h2>
+            </div>
+
+            <div class="spec-grid fade-in">
+                <div class="spec-item">
+                    <div class="spec-label">Instrument</div>
+                    <div class="spec-value">SOL/USDT Perpetual (Binance)</div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-label">Risk Management</div>
+                    <div class="spec-value">No stop loss full intraday exposure</div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-label">Timeframe</div>
+                    <div class="spec-value">1H Candles (UTC)</div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-label">Position Sizing</div>
+                    <div class="spec-value">1-2% of NAV per trade</div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-label">Entry Signal</div>
+                    <div class="spec-value">
+                        <ul>
+                            <li>Observe the UTC 00:00 01:00 candle</li>
+                            <li>If candle closes RED with decline >= 1.0%</li>
+                            <li>Enter LONG at candle close price</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-label">Edge Classification</div>
+                    <div class="spec-value">
+                        <ul>
+                            <li>Mean reversion following first-hour selling pressure</li>
+                            <li>Positive skew: convex payoff structure</li>
+                            <li>Statistically significant at p &lt; 0.01</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-label">Exit</div>
+                    <div class="spec-value">Time-based exit at UTC 12:00 (+12 hours)</div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-label">Backtest</div>
+                    <div class="spec-value">26 Aug 2020 &ndash; 05 Mar 2025 (4.5 years) 301 total trades</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why This Works -->
+    <section class="trading-steps">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">03 - THE EDGE</div>
+                <h2 class="section-title">Why Mean Reversion<br>Works Here</h2>
+            </div>
+
+            <div class="strategy-grid">
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">&#128200;</span>
+                    <h3 class="strategy-title">Positive Skew</h3>
+                    <p class="strategy-description">
+                        Skewness of +3.39 means the distribution of returns has a heavy right tail. Winning trades are disproportionately larger than losers, creating a convex payoff structure. Even with a 58.8% win rate, the asymmetry drives returns.
+                    </p>
+                </div>
+
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">&#128202;</span>
+                    <h3 class="strategy-title">Statistical Significance</h3>
+                    <p class="strategy-description">
+                        T-statistic of 3.322 with a p-value of 0.001. The probability these results occurred by chance is roughly 1 in 1,000. With 301 trades over 4.5 years, this isn't a small-sample artifact.
+                    </p>
+                </div>
+
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">&#9201;</span>
+                    <h3 class="strategy-title">Time-Based Exit</h3>
+                    <p class="strategy-description">
+                        The 12-hour holding window captures the mean reversion move without overnight exposure risk. After the initial selling pressure dissipates in the first hour, price gravitates back toward fair value during the active trading session.
+                    </p>
+                </div>
+
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">&#128176;</span>
+                    <h3 class="strategy-title">Profit Factor 1.89</h3>
+                    <p class="strategy-description">
+                        For every dollar lost, the strategy generates $1.89. Combined with an average winning trade of +4.27% versus average losing trade of -3.23%, the risk-reward profile is structurally favorable over a large sample.
+                    </p>
+                </div>
+
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">&#127919;</span>
+                    <h3 class="strategy-title">Clear Entry Trigger</h3>
+                    <p class="strategy-description">
+                        The entry condition is binary and mechanical: first hourly candle (UTC 00:00-01:00) must close red with a decline of 1% or more. No discretion, no ambiguity, no curve-fitting of multiple indicators. One rule.
+                    </p>
+                </div>
+
+                <div class="strategy-card fade-in">
+                    <span class="strategy-icon">&#128170;</span>
+                    <h3 class="strategy-title">Risk-Adjusted Returns</h3>
+                    <p class="strategy-description">
+                        Sharpe of 3.04 and Sortino of 6.28 indicate strong risk-adjusted performance. The Calmar ratio of 2.89 shows CAGR relative to max drawdown is favorable. These ratios hold across the full 4.5-year sample.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Trade It -->
+    <section class="trading-steps">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">04 - EXECUTION</div>
+                <h2 class="section-title">How to Trade<br>the Strategy</h2>
+            </div>
+
+            <div class="step fade-in">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Monitor the First Hourly Candle</h3>
+                    <p>
+                        At UTC 01:00, check the 1H candle that just closed (UTC 00:00 to 01:00). This is the first candle of the day in UTC time. You're looking for a single condition: did it close red with a decline of 1.0% or more from open to close?
+                    </p>
+                    <div class="code-block">
+                        IF candle_close < candle_open AND<br>
+                        (candle_open - candle_close) / candle_open >= 0.01<br>
+                        &rarr; ENTRY SIGNAL: LONG at candle close price
+                    </div>
+                </div>
+            </div>
+
+            <div class="step fade-in">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Enter Long at the Close</h3>
+                    <p>
+                        If the condition is met, enter a long position on SOL/USDT Perpetual at the close of the 1H candle. Position size should be 1-2% of NAV. This is a mean reversion play: the first-hour selling pressure tends to reverse over the following 12 hours.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step fade-in">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Exit at UTC 12:00</h3>
+                    <p>
+                        Close the position at UTC 12:00, exactly 12 hours after the entry candle opened. This is a time-based exit with no stop loss. The full intraday exposure means you ride through any volatility within the 12-hour window.
+                    </p>
+                    <div class="code-block">
+                        ENTRY: UTC 01:00 (at 1H candle close)<br>
+                        EXIT: UTC 12:00 (time-based, +12 hours)<br>
+                        STOP: None (full intraday exposure)
+                    </div>
+                </div>
+            </div>
+
+            <div class="step fade-in">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Size According to Risk Appetite</h3>
+                    <p>
+                        The backtest uses 1-2% of NAV per trade. The worst trade was -15.52%, and max consecutive losses reached 9. With 67 trades per year, there will be losing streaks. Size appropriately for your drawdown tolerance.
+                    </p>
+                </div>
+            </div>
+
+            <div class="warning-box fade-in">
+                <div class="warning-title">Risk Disclaimer</div>
+                <p>
+                    This composite performance record and statistics are hypothetical. Past performance does NOT guarantee future results. The strategy has no stop loss and carries full intraday exposure. The worst single trade lost -15.52%, and the maximum drawdown reached -33%. Market conditions, liquidity, and exchange mechanics can all change. Position size accordingly. This is educational content, not financial advice. Never risk more than you can afford to lose.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Considerations -->
+    <section class="trading-steps" style="padding-top: 0;">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-number">05 - CONSIDERATIONS</div>
+                <h2 class="section-title">Key Risks &<br>Considerations</h2>
+            </div>
+
+            <div class="insight-grid fade-in">
+                <div class="insight-card">
+                    <span class="insight-icon">&#9888;&#65039;</span>
+                    <h3 class="insight-title">No Stop Loss</h3>
+                    <p class="insight-text">
+                        The strategy runs without a stop loss. This contributes to the positive skew but means intraday drawdowns can be severe. The -15.52% worst trade happened because position was held through a sharp move. Understand this before deploying.
+                    </p>
+                </div>
+
+                <div class="insight-card">
+                    <span class="insight-icon">&#128201;</span>
+                    <h3 class="insight-title">High Kurtosis</h3>
+                    <p class="insight-text">
+                        Kurtosis of +29.48 means extreme returns (both positive and negative) are far more common than a normal distribution would suggest. Fat tails are real. Your +60.5% best trade and -15.52% worst trade illustrate this.
+                    </p>
+                </div>
+
+                <div class="insight-card">
+                    <span class="insight-icon">&#128337;</span>
+                    <h3 class="insight-title">Regime Dependence</h3>
+                    <p class="insight-text">
+                        Mean reversion works until it doesn't. If SOL enters a sustained downtrend, the first-hour selling pressure may continue rather than reverse. Monitor whether the edge persists by tracking rolling win rates and expectancy.
+                    </p>
+                </div>
+
+                <div class="insight-card">
+                    <span class="insight-icon">&#128178;</span>
+                    <h3 class="insight-title">Slippage & Fees</h3>
+                    <p class="insight-text">
+                        With an EV/trade of +1.18%, execution costs matter. Funding rates, taker fees, and slippage on Binance perpetuals can eat into the edge. Factor in realistic transaction costs before going live.
+                    </p>
+                </div>
+
+                <div class="insight-card">
+                    <span class="insight-icon">&#128736;</span>
+                    <h3 class="insight-title">Sample Robustness</h3>
+                    <p class="insight-text">
+                        301 trades over 4.5 years is reasonable but not enormous. The T-statistic of 3.322 provides confidence, but continue validating on out-of-sample data. Market structure in crypto evolves fast.
+                    </p>
+                </div>
+
+                <div class="insight-card">
+                    <span class="insight-icon">&#128203;</span>
+                    <h3 class="insight-title">Backtest ≠ Live</h3>
+                    <p class="insight-text">
+                        Hypothetical results don't include real-world frictions: exchange downtime, liquidation cascades, withdrawal restrictions, or sudden liquidity drops. Paper trade first. Forward test before allocating real capital.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">
+                Poet &mdash; Quantitative Research &mdash; Not Financial Advice &mdash; Educational Purposes Only
+            </p>
+        </div>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
