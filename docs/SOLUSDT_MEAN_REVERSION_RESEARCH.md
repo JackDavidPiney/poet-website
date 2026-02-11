@@ -1,8 +1,8 @@
 # SOLUSDT Mean Reversion Strategy — Research Report
 
 **Poet Quantitative Research**
-**Date:** February 2025
-**Status:** Active Development — Drawdown Reduction Phase
+**Date:** February 11, 2026
+**Status:** Active Development
 **Classification:** Hypothetical Backtest Results
 
 ---
