@@ -348,6 +348,53 @@
             .hero-stat-row {
                 gap: 30px;
             }
+
+            .hero-cta-group {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 40px;
+                animation: fadeInUp 0.8s ease-out 0.8s backwards;
+            }
+
+            .hero-btn {
+                display: inline-block;
+                padding: 16px 40px;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                text-decoration: none;
+                border-radius: 50px;
+                transition: all 0.3s ease;
+            }
+
+            .hero-btn-primary {
+                background: var(--primary);
+                color: var(--bg-dark);
+                border: 2px solid var(--primary);
+            }
+
+            .hero-btn-primary:hover {
+                background: transparent;
+                color: var(--primary);
+                transform: translateY(-3px);
+                box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+            }
+
+            .hero-btn-secondary {
+                background: transparent;
+                color: var(--text-secondary);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+            }
+
+            .hero-btn-secondary:hover {
+                color: var(--primary);
+                border-color: var(--primary);
+                transform: translateY(-3px);
+            }
         }
     </style>
 </head>
@@ -383,6 +430,10 @@
                     <div class="hero-stat-value">301</div>
                     <div class="hero-stat-label">Trades</div>
                 </div>
+            </div>
+            <div class="hero-cta-group">
+                <a href="https://github.com/JackDavidPiney/poet-website/blob/main/docs/SOLUSDT_MEAN_REVERSION_RESEARCH.md" class="hero-btn hero-btn-primary">Research Paper</a>
+                <a href="https://jup.ag/tokens/4jnqfSMWE1opwNT9m98s5QFKyNasypjeoieJsGsdjupx" target="_blank" rel="noopener" class="hero-btn hero-btn-secondary">Get $POET</a>
             </div>
         </div>
     </section>
